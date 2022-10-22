@@ -19,6 +19,7 @@
 
 ## 2D(2)
 
-📖 [WebGL2入門 基礎編](https://sbfl.net/blog/2016/09/04/webgl2-tutorial-basics/)  
+* 📖 [WebGL2入門 基礎編](https://sbfl.net/blog/2016/09/04/webgl2-tutorial-basics/)
+* 📖 [glMatrix - mat4 not defined](https://stackoverflow.com/questions/66352260/glmatrix-mat4-not-defined)
 
 EOF

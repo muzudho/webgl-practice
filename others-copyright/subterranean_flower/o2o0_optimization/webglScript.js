@@ -1,19 +1,13 @@
 function init() {
-    // * HTMLタグを書いているならこちら
-    // var canvas = document.getElementById("canvas");
-    //
-    // * Canvasを作成してbodyに追加するならこちら
+    // Canvasを作成してbodyに追加します。
     const canvas = document.createElement("canvas");
-    document.body.appendChild(canvas);
-
-    // * キャンバスサイズ設定
     canvas.width = 500;
     canvas.height = 500;
+    document.body.appendChild(canvas);
 
-    // * WebGL2のコンテキストを取得
+    // WebGL2のコンテキストを取得します。
     const gl = canvas.getContext("webgl2");
 
-    // * 外部ファイルのシェーダ読込
     const loadVertexShader = fetch("../input/vertex_shader.glsl");
     const loadFragmentShader = fetch("../input/fragment_shader.glsl");
 
@@ -64,7 +58,6 @@ function init() {
 
             // データを転送するためのバッファを作成します。
             const vertexBuffer = gl.createBuffer();
-            const colorBuffer = gl.createBuffer();
 
             // バーテックスシェーダのin変数の位置を取得します。
             const vertexAttribLocation = gl.getAttribLocation(program, "vertexPosition");
@@ -73,35 +66,71 @@ function init() {
             const VERTEX_SIZE = 3; // vec3
             const COLOR_SIZE = 4; // vec4
 
-            // バッファ操作前には必ずバインドします。
+            const STRIDE = (3 + 4) * Float32Array.BYTES_PER_ELEMENT;
+            const POSITION_OFFSET = 0;
+            const COLOR_OFFSET = 3 * Float32Array.BYTES_PER_ELEMENT;
+
+            // バッファをバインドします。
             gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
-            // in変数を有効化します
+
+            // in変数を有効化します。
             gl.enableVertexAttribArray(vertexAttribLocation);
-            // 現在バインドしているバッファと変数を結びつけます。
-            // サイズはvec3を指定してるので3にします。型はFLOATを使用します。
-            // うしろ3つの引数は今は気にしないでください。
-            gl.vertexAttribPointer(vertexAttribLocation, VERTEX_SIZE, gl.FLOAT, false, 0, 0);
-
-            // 頂点色についても同様にします。
-            gl.bindBuffer(gl.ARRAY_BUFFER, colorBuffer);
             gl.enableVertexAttribArray(colorAttribLocation);
-            gl.vertexAttribPointer(colorAttribLocation, COLOR_SIZE, gl.FLOAT, false, 0, 0);
 
-            // 頂点情報。vec3で宣言しているので、xyzxyzxyz…と並べていきます。
-            // WebGL2では基本的にfloat型を使うので、Float32Arrayを使用します。
-            const vertices = new Float32Array([-0.5, 0.5, 0.0, -0.5, -0.5, 0.0, 0.5, 0.5, 0.0, -0.5, -0.5, 0.0, 0.5, -0.5, 0.0, 0.5, 0.5, 0.0]);
+            // in変数とバッファを結び付けます。
+            // 第5引数にstride、第6引数にoffsetを指定します。
+            gl.vertexAttribPointer(vertexAttribLocation, VERTEX_SIZE, gl.FLOAT, false, STRIDE, POSITION_OFFSET);
+            gl.vertexAttribPointer(colorAttribLocation, COLOR_SIZE, gl.FLOAT, false, STRIDE, COLOR_OFFSET);
 
-            // 色情報。vec4で宣言してるのでrgbargbargba…と並べていきます。
-            // すべて0.0〜1.0の範囲で指定します。
-            // 頂点と同じ数だけ（今回は6つ）必要です。
-            const colors = new Float32Array([1.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 1.0]);
+            // インターリーブされた頂点情報です。
+            const vertices = new Float32Array([
+                -0.5,
+                0.5,
+                0.0, // xyz
+                1.0,
+                0.0,
+                0.0,
+                1.0, // rgba
+                -0.5,
+                -0.5,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                1.0,
+                0.5,
+                0.5,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                1.0,
+                -0.5,
+                -0.5,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                1.0,
+                0.5,
+                -0.5,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.5,
+                0.5,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                1.0,
+            ]);
 
             // バインドしてデータを転送します。
             gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
             gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
-
-            gl.bindBuffer(gl.ARRAY_BUFFER, colorBuffer);
-            gl.bufferData(gl.ARRAY_BUFFER, colors, gl.STATIC_DRAW);
 
             // 四角形を描画します。
             const VERTEX_NUMS = 6;
