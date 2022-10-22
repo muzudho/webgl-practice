@@ -1,6 +1,8 @@
 # webgl-practice
 
-練習
+練習  
+
+* VSCodeの `Live Server` エクステンションを入れると ローカルHTMLサーバーを立てられる。  
 
 # Documents
 
