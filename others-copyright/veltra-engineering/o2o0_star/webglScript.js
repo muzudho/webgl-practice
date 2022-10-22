@@ -15,7 +15,9 @@ function init() {
     gl.compileShader(vShader);
     gl.getShaderParameter(vShader, gl.COMPILE_STATUS);
 
-    var rgba = [0.0, 0.0, 0.0, 1.0]; // Red, Green, Blue, Alpha
+    //フラグメントシェーダの設定で設定したカラーを以下に変更
+    var rgba = [1.0, 0.0, 0.0, 1.0]; // Red, Green, Blue, Alpha
+
     var fSource = ["precision mediump float;", "void main(void) {", "gl_FragColor = vec4(" + rgba.join(",") + ");", "}"].join("\n");
     var fShader = gl.createShader(gl.FRAGMENT_SHADER);
     gl.shaderSource(fShader, fSource);
@@ -33,12 +35,8 @@ function init() {
     gl.enableVertexAttribArray(vertex);
     gl.vertexAttribPointer(vertex, 2, gl.FLOAT, false, 0, 0);
 
-    var vertices = [
-        -1,
-        0, //x,y
-        1,
-        0, //x,y
-    ];
+    // 星型
+    var vertices = [-0.75, 0.4, 0.75, 0.4, -0.5, -0.7, 0.0, 0.8, 0.5, -0.7];
     var verticesNum = vertices.length / 2;
 
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.DYNAMIC_DRAW);
