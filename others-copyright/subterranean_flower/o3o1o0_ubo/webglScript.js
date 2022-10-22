@@ -9,8 +9,8 @@ function init() {
 
     // シェーダを読み込みPromiseを返します。
     function loadShaders() {
-        const loadVertexShader = fetch("../input/3d/vertex_shader_3d_ubo.glsl").then((res) => res.text());
-        const loadFragmentShader = fetch("../input/3d/fragment_shader_3d.glsl").then((res) => res.text());
+        const loadVertexShader = fetch("../input/3d_ubo/vertex_shader.glsl").then((res) => res.text());
+        const loadFragmentShader = fetch("../input/3d/fragment_shader.glsl").then((res) => res.text());
         return Promise.all([loadVertexShader, loadFragmentShader]);
     }
 
@@ -114,7 +114,7 @@ function init() {
 
         //
         // Uniform変数の書き込み部分 ここから
-        // - `vertex_shader_3d_ubo.glsl` - に対応
+        // - `../input/3d_ubo/vertex_shader.glsl` - に対応
         //
         const modelArray = Array.from(model);
         const viewArray = Array.from(view);

@@ -9,8 +9,8 @@ function init() {
 
     // シェーダを読み込みPromiseを返します。
     function loadShaders() {
-        const loadVertexShader = fetch("../input/3d/vertex_shader_3d.glsl").then((res) => res.text());
-        const loadFragmentShader = fetch("../input/3d/fragment_shader_3d.glsl").then((res) => res.text());
+        const loadVertexShader = fetch("../input/3d/vertex_shader.glsl").then((res) => res.text());
+        const loadFragmentShader = fetch("../input/3d/fragment_shader.glsl").then((res) => res.text());
         return Promise.all([loadVertexShader, loadFragmentShader]);
     }
 
