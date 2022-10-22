@@ -14,8 +14,8 @@ function init() {
     const gl = canvas.getContext("webgl2");
 
     // * 外部ファイルのシェーダ読込
-    const loadVertexShader = fetch("vertex_shader.glsl");
-    const loadFragmentShader = fetch("fragment_shader.glsl");
+    const loadVertexShader = fetch("../input/vertex_shader.glsl");
+    const loadFragmentShader = fetch("../input/fragment_shader.glsl");
 
     Promise.all([loadVertexShader, loadFragmentShader])
         .then((responses) => Promise.all([responses[0].text(), responses[1].text()]))
