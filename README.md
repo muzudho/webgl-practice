@@ -2,7 +2,7 @@
 
 練習  
 
-* VSCodeの `Live Server` エクステンションを入れると ローカルHTMLサーバーを立てられる。  
+* VSCodeの `Live Server` エクステンションを入れると ローカルHTMLサーバーを立てられる。 親フォルダ―を開いて、ステータスバーの `Go Live` をクリックでサーバー開始  
 
 # Documents
 
@@ -16,5 +16,9 @@
 ## 2D
 
 📖 [WebGL入門（2D基本編）](https://medium.com/veltra-engineering/webgl-2d-a9c7a7d89fb8)
+
+## 2D(2)
+
+📖 [WebGL2入門 基礎編](https://sbfl.net/blog/2016/09/04/webgl2-tutorial-basics/)  
 
 EOF
