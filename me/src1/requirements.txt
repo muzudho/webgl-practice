@@ -1,0 +1,5 @@
+# Dockerは2022年時点で Django 4 に対応してないから Django 3 を指定する
+Django>=3.0,<4.0
+
+# PostgreSQLへ接続するためのドライバ
+psycopg2>=2.8

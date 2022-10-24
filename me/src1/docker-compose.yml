@@ -1,0 +1,36 @@
+version: "3.9"
+
+services:
+  # データベース
+  db:
+    image: postgres
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_NAME=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
+  # Djangoアプリ
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000 --settings=project1.settings
+    #                                   ------- ----            -----------------
+    #                                   1       2               3
+    # 1. Dockerコンテナ内のサーバーは localhost ではなく 0.0.0.0 と書く
+    # 2. Dockerコンテナ内のWebアプリケーションのポート番号
+    # 3. Django設定のPythonモジュール。分からなければ、Djangoの設定ファイル（src1/project1/settings.py）の拡張子抜きのドット区切りと考えればよい
+    #                                                                        -----------------
+    #    例えばレッスンの最初に project1 プロジェクトを作成したなら、
+    #    デフォルトでは project1 プロジェクトの --settings=project1.settings を指定するようハードコーディングされる。
+    #    この Django設定 を差し替えたくなったら、ここを変えればよい
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    environment:
+      - POSTGRES_NAME=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    depends_on:
+      - db
