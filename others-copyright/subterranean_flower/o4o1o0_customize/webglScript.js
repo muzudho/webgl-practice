@@ -30,22 +30,35 @@ function init() {
         gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, imageForTexture); // テクスチャデータの転送
         gl.generateMipmap(gl.TEXTURE_2D); // ミップマップの作成
 
+        //    Y
+        //  0.0 +----+----+
+        //      |    |    |
+        //  0.0 +----+----+
+        //      |    |    |
+        // -1.0 +----+----+
+        //   -1.0  0.0  1.0 X
+        //
+        // 画像は上下逆さになる
         const vertices = new Float32Array([
+            // (1) 画像の左上を　テクスチャーの左下に合わせるか？
             -1.0,
             1.0,
-            0.0, // 頂点座標
+            0.0, // 頂点座標 x,y,z か
             0.0,
-            0.0, // テクスチャ座標
+            0.0, // テクスチャー画像の x,y
+            // (2) 画像の左下か
             -1.0,
             -1.0,
             0.0,
             0.0,
             1.0,
+            // (3) 画像の右上か
             1.0,
             1.0,
             0.0,
             1.0,
             0.0,
+            // (4) 画像の右下か
             1.0,
             -1.0,
             0.0,
@@ -53,6 +66,13 @@ function init() {
             1.0,
         ]);
 
+        // こうか？
+        // 0    2
+        // +----+
+        // |  ／|
+        // |／  |
+        // +----+
+        // 1    3
         const indices = new Uint16Array([0, 1, 2, 1, 3, 2]);
 
         const vertexBuffer = glF.createBuffer(gl.ARRAY_BUFFER, vertices);
@@ -75,9 +95,10 @@ function init() {
         gl.vertexAttribPointer(vertexAttribLocation, VERTEX_SIZE, gl.FLOAT, false, STRIDE, VERTEX_OFFSET);
         gl.vertexAttribPointer(textureAttribLocation, TEXTURE_SIZE, gl.FLOAT, false, STRIDE, TEXTURE_OFFSET);
 
-        // 描画します。
         const indexSize = indices.length;
         gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
+
+        // 描画します。
         gl.drawElements(gl.TRIANGLES, indexSize, gl.UNSIGNED_SHORT, 0);
         gl.flush();
     });

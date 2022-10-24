@@ -84,7 +84,7 @@ function init() {
     // シェーダとテクスチャを読み込み終わったら開始します。
     Promise.all([loadShaders(), loadTextureImage("../input/texture/2016_09_texture.png")]).then((assets) => {
         const shaderSources = assets[0];
-        const textureImage = assets[1];
+        const imageForTexture = assets[1];
 
         const vertexShaderSource = shaderSources[0];
         const fragmentShaderSource = shaderSources[1];
@@ -96,7 +96,7 @@ function init() {
         //
         const texture = gl.createTexture(); // テクスチャの作成
         gl.bindTexture(gl.TEXTURE_2D, texture); // テクスチャのバインド
-        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, textureImage); // テクスチャデータの転送
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, imageForTexture); // テクスチャデータの転送
         gl.generateMipmap(gl.TEXTURE_2D); // ミップマップの作成
 
         //    Y
