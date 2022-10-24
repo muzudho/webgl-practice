@@ -1,12 +1,34 @@
-<html>
+{% load static %} {# 👈あとで static "URL" を使うので load static します #}
+<!DOCTYPE html>
+<html lang="ja">
     <head>
         <meta charset="utf-8" />
+        <title>ワラベンチャー</title>
+        <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}" />
+        <!--                                                ===================
+                                                            1
+            1. Example: `http://example.com/static/favicon.ico`
+                                            ==================
+        -->
+        <!-- 3D -->
         <script src="https://unpkg.com/three@0.140.2/build/three.min.js"></script>
+        <!-- `gl-matrix-min.js` - mat4 を含む -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gl-matrix/2.8.1/gl-matrix-min.js"></script>
+
+        <script src="{% static 'webglFacade.js' %}"></script>
+        <script src="{% static 'webglScript.js' %}"></script>
+
         <script>
             // ページの読み込みを待つ
             window.addEventListener("DOMContentLoaded", init);
 
             function init() {
+                // シェーダー・スクリプトのファイルパスの配列
+                const shaderScriptPaths = ["../static/texture/vertex_shader.glsl", "../static/texture/fragment_shader.glsl"];
+                // const imagePath = "../static/texture/2016_09_texture.png";
+                const imagePath = "../static/202101__character__28--kifuwarabe-futsu.png";
+                webgl_setup(shaderScriptPaths, imagePath);
+
                 // サイズを指定
                 const width = 960;
                 const height = 540;
