@@ -1,0 +1,3 @@
+file,path,name,comment,module,class,alias,method
+../src1/project1/urls_autogen.py,,,"集約ファイル",,,,
+../src1/project1/urls_warabenture_vol1o0_autogen.py,warabenture/vol1.0/hello-alias/ver1.0/,warabenture_vol1o0_hello_alias,"O3o2o_1o0g1o0 練習1.0巻 こんにちわ別名1.0版",apps1.warabenture_vol1o0.views.hello.ver1o0,HelloView,,render

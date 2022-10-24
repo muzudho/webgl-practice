@@ -25,6 +25,16 @@ from .settings import PROJECT_NAME
 #                   --------
 # 3. 変数
 
+# [O3o2o_1o0g5o0] 自動生成されたURL設定
+from .urls_autogen import urlpatterns as urlpatterns_autogen
+#    ]------------        -----------    -------------------
+#    12                   3              4
+# 1. 同じディレクトリー
+# 2. `src1/projectN/urls_autogen.py`
+#                   ------------
+# 3. `2.` に含まれる変数
+# 4. `3.` の別名
+
 urlpatterns = [
     # 最初から Django の管理画面は用意されている
     path('admin/', admin.site.urls),
@@ -51,3 +61,6 @@ urlpatterns = [
     # 2. `src1/projectN/urls_warabenture.py` の urlpatterns を `1.` にぶら下げる
     #          ----------------------------
 ]
+
+# [O3o2o_1o0g5o0] 自動生成されたURL設定
+urlpatterns.extend(urlpatterns_autogen)
