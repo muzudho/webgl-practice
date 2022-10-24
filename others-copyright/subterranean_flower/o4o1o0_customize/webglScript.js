@@ -16,7 +16,7 @@ function init() {
         const vertexShaderSource = shaderSources[0];
         const fragmentShaderSource = shaderSources[1];
 
-        const program = createShaderProgram(gl, vertexShaderSource, fragmentShaderSource);
+        const program = glF.createShaderProgram(vertexShaderSource, fragmentShaderSource);
 
         //
         // テクスチャの転送
@@ -98,48 +98,6 @@ function loadTextureImage(srcUrl) {
 
         texture.src = srcUrl;
     });
-}
-
-// シェーダーのスクリプト（ソース）からシェーダプログラムを作成する Program を返します
-function createShaderProgram(gl, vsSource, fsSource) {
-    // バーテックスシェーダをコンパイルします。
-    const vertexShader = gl.createShader(gl.VERTEX_SHADER);
-    gl.shaderSource(vertexShader, vsSource);
-    gl.compileShader(vertexShader);
-
-    const vShaderCompileStatus = gl.getShaderParameter(vertexShader, gl.COMPILE_STATUS);
-    if (!vShaderCompileStatus) {
-        const info = gl.getShaderInfoLog(vertexShader);
-        console.log(info);
-    }
-
-    // フラグメントシェーダについても同様にします。
-    const fragmentShader = gl.createShader(gl.FRAGMENT_SHADER);
-    gl.shaderSource(fragmentShader, fsSource);
-    gl.compileShader(fragmentShader);
-
-    const fShaderCompileStatus = gl.getShaderParameter(fragmentShader, gl.COMPILE_STATUS);
-    if (!fShaderCompileStatus) {
-        const info = gl.getShaderInfoLog(fragmentShader);
-        console.log(info);
-    }
-
-    // シェーダプログラムを作成します。
-    const program = gl.createProgram();
-    gl.attachShader(program, vertexShader);
-    gl.attachShader(program, fragmentShader);
-    gl.linkProgram(program);
-
-    const linkStatus = gl.getProgramParameter(program, gl.LINK_STATUS);
-    if (!linkStatus) {
-        const info = gl.getProgramInfoLog(program);
-        console.log(info);
-    }
-
-    // プログラムを使用します。
-    gl.useProgram(program);
-
-    return program;
 }
 
 // EOF
