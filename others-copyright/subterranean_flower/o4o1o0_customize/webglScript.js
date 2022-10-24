@@ -51,8 +51,8 @@ function init() {
 
         const indices = new Uint16Array([0, 1, 2, 1, 3, 2]);
 
-        const vertexBuffer = createBuffer(gl, gl.ARRAY_BUFFER, vertices);
-        const indexBuffer = createBuffer(gl, gl.ELEMENT_ARRAY_BUFFER, indices);
+        const vertexBuffer = glF.createBuffer(gl.ARRAY_BUFFER, vertices);
+        const indexBuffer = glF.createBuffer(gl.ELEMENT_ARRAY_BUFFER, indices);
 
         const vertexAttribLocation = gl.getAttribLocation(program, "vertexPosition");
         const textureAttribLocation = gl.getAttribLocation(program, "texCoord");
@@ -140,16 +140,6 @@ function createShaderProgram(gl, vsSource, fsSource) {
     gl.useProgram(program);
 
     return program;
-}
-
-// バッファを作成し返します。
-function createBuffer(gl, type, typedDataArray) {
-    const buffer = gl.createBuffer();
-    gl.bindBuffer(type, buffer);
-    gl.bufferData(type, typedDataArray, gl.STATIC_DRAW);
-    gl.bindBuffer(type, null); // バインド解除
-
-    return buffer;
 }
 
 // EOF
