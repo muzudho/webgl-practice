@@ -8,8 +8,11 @@ function init() {
     const gl = canvas.getContext("webgl2");
     const glF = WebglFacade.NewInstance(gl);
 
+    // シェーダー・スクリプトのファイルパスの配列
+    const shaderScriptPaths = ["../input/texture/vertex_shader.glsl", "../input/texture/fragment_shader.glsl"];
+
     // シェーダとテクスチャを読み込み終わったら開始します。
-    Promise.all([loadShaders(), loadTextureImage("../input/texture/2016_09_texture.png")]).then((assets) => {
+    Promise.all([loadShaderScripts(shaderScriptPaths), loadTextureImage("../input/texture/2016_09_texture.png")]).then((assets) => {
         const shaderSources = assets[0];
         const textureImage = assets[1];
 
@@ -79,13 +82,15 @@ function init() {
     });
 }
 
-// シェーダーの外部スクリプトを読み込む Promise を返します
-function loadShaders() {
-    // シェーダーの外部スクリプト
-    const loadVertexShader = fetch("../input/texture/vertex_shader.glsl").then((res) => res.text());
-    // シェーダーの外部スクリプト
-    const loadFragmentShader = fetch("../input/texture/fragment_shader.glsl").then((res) => res.text());
-    return Promise.all([loadVertexShader, loadFragmentShader]);
+/**
+ * シェーダーの外部スクリプトを読み込む Promise を返します
+ * @param {*} paths ファイルパスの配列。シェーダーの外部スクリプト
+ * @returns
+ */
+function loadShaderScripts(paths) {
+    const arrayOfGetsText = paths.map((path) => fetch(path).then((res) => res.text()));
+
+    return Promise.all(arrayOfGetsText);
 }
 
 // テクスチャー（画像）を読み込む Promise を返します。
