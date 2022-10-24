@@ -10,15 +10,17 @@ class WebglFacade {
     }
 
     /**
-     * シェーダーのスクリプト（ソース）からシェーダプログラムを作成する Program を返します
-     * @param {*} vsSource
-     * @param {*} fsSource
+     * WebGLにプログラムを登録する Promise を返す。
+     * 引数として、シェーダーのスクリプト（ソース）を与える。
+     *
+     * @param {*} vertexShaderScript
+     * @param {*} fragmentShaderScript
      * @returns
      */
-    createShaderProgram(vsSource, fsSource) {
-        // バーテックスシェーダをコンパイルします。
+    createShaderProgram(vertexShaderScript, fragmentShaderScript) {
+        // バーテックスシェーダをコンパイルします
         const vertexShader = this.#gl.createShader(this.#gl.VERTEX_SHADER);
-        this.#gl.shaderSource(vertexShader, vsSource);
+        this.#gl.shaderSource(vertexShader, vertexShaderScript);
         this.#gl.compileShader(vertexShader);
 
         const vShaderCompileStatus = this.#gl.getShaderParameter(vertexShader, this.#gl.COMPILE_STATUS);
@@ -27,9 +29,9 @@ class WebglFacade {
             console.log(info);
         }
 
-        // フラグメントシェーダについても同様にします。
+        // フラグメントシェーダについても同様にします
         const fragmentShader = this.#gl.createShader(this.#gl.FRAGMENT_SHADER);
-        this.#gl.shaderSource(fragmentShader, fsSource);
+        this.#gl.shaderSource(fragmentShader, fragmentShaderScript);
         this.#gl.compileShader(fragmentShader);
 
         const fShaderCompileStatus = this.#gl.getShaderParameter(fragmentShader, this.#gl.COMPILE_STATUS);
@@ -38,7 +40,7 @@ class WebglFacade {
             console.log(info);
         }
 
-        // シェーダプログラムを作成します。
+        // WebGLに渡すプログラムを作成します
         const program = this.#gl.createProgram();
         this.#gl.attachShader(program, vertexShader);
         this.#gl.attachShader(program, fragmentShader);
@@ -50,7 +52,7 @@ class WebglFacade {
             console.log(info);
         }
 
-        // プログラムを使用します。
+        // WebGLにプログラムを使用させます
         this.#gl.useProgram(program);
 
         return program;
