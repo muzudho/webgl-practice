@@ -2,7 +2,8 @@
 
 練習  
 
-* VSCodeの `Live Server` エクステンションを入れると ローカルHTMLサーバーを立てられる。 親フォルダ―を開いて、ステータスバーの `Go Live` をクリックでサーバー開始  
+* VSCodeの `Live Server` エクステンションを入れると ローカルHTMLサーバーを立てられる
+  * VSCode で、親フォルダ―を開いて、ステータスバーの `Go Live` をクリックでサーバー開始  
 
 # Documents
 
