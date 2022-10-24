@@ -6,6 +6,7 @@ function init() {
     document.body.appendChild(canvas);
 
     const gl = canvas.getContext("webgl2");
+    const glF = WebglFacade.NewInstance(gl);
 
     // シェーダとテクスチャを読み込み終わったら開始します。
     Promise.all([loadShaders(), loadTextureImage("../input/texture/2016_09_texture.png")]).then((assets) => {
