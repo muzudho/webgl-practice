@@ -11,3 +11,6 @@ src1/project2/settings_secrets.py
 #   |
 #   +-- Database
 src1/data/db
+
+# 一応書いておく
+.env

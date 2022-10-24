@@ -4,7 +4,7 @@ from django.shortcuts import render
 
 
 class HelloView():
-    """O3o1o0g9o0 こんにちわページ"""
+    """[O3o1o0g9o0] こんにちわページ"""
 
     @staticmethod
     def render(request):
