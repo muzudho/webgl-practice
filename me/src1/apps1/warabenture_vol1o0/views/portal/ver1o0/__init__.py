@@ -11,7 +11,7 @@ class PortalView():
         """描画"""
 
         template_path = 'warabenture_vol1o0/portal/ver1o0.html'
-        #                ------------------------------------
+        #                -------------------------------------
         #                1
         # 1. `src1/apps1/warabenture_vol1o0/templates/warabenture_vol1o0/portal/ver1o0.html` を取得
         #                                             -------------------------------------

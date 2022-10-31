@@ -15,16 +15,13 @@
         <!-- `gl-matrix-min.js` - mat4 を含む -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gl-matrix/2.8.1/gl-matrix-min.js"></script>
 
-        <script src="{% static 'webglFacade.js' %}"></script>
-        <script src="{% static 'webglScript.js' %}"></script>
-
         <script>
             // ページの読み込みを待つ
             window.addEventListener("DOMContentLoaded", init);
 
             function init() {
                 // パスを確認しましょう
-                // console.log(`window.location.href:${window.location.href}`);
+                console.log(`window.location.href:${window.location.href}`);
 
                 /**
                  * パスの手調整
@@ -36,8 +33,6 @@
                 //
                 // 外部リソースの場所
                 //
-                // シェーダー・スクリプトのファイルパスの配列
-                const pathsOfShaderScript = [adjustPath("static/texture/vertex_shader.glsl"), adjustPath("static/texture/fragment_shader.glsl")];
                 // 画像ファイルパス
                 const pathOfImageNo1 = adjustPath("static/202101__character__28--kifuwarabe-futsu.png");
 
@@ -77,9 +72,6 @@
                 // 背景が真っ暗なのを止める
                 // 📖 [three.jsの背景を透明色または他の色に変更する](https://qastack.jp/programming/16177056/changing-three-js-background-to-transparent-or-other-color)
                 renderer.setClearColor(0xffffff, 0);
-
-                // WebGL に外部リソース設定
-                webgl_setup(pathsOfShaderScript, pathOfImageNo1);
 
                 //
                 // マテリアル作成

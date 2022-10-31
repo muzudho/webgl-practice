@@ -10,8 +10,10 @@ docker-compose up
 
 # Smoke test
 
-📖 [http://localhost:8000/warabenture/vol1.0/hello/ver1.0/](http://localhost:8000/warabenture/vol1.0/hello/ver1.0/)  
+📖 [http://localhost:8000/hello/ver1.0/](http://localhost:8000/hello/ver1.0/)  
+📖 [http://localhost:8000/](http://localhost:8000/)  
 📖 [http://localhost:8000/portal/ver1.0/](http://localhost:8000/portal/ver1.0/)  
+📖 [http://localhost:8000/portal/ver1.1.0/](http://localhost:8000/portal/ver1.1.0/)  
 
 # URLs generator
 

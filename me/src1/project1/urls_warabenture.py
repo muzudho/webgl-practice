@@ -2,7 +2,7 @@
 
 from django.urls import path
 
-# [O3o1o0gA10o0] 練習1.0巻 こんにちわページ1.0版
+# [O3o1o0gA10o0] こんにちわページ1.0版
 from apps1.warabenture_vol1o0.views.hello.ver1o0 import HelloView
 #          ------------------             ------        ---------
 #          11                             12            2
@@ -15,15 +15,15 @@ from apps1.warabenture_vol1o0.views.hello.ver1o0 import HelloView
 
 urlpatterns = [
 
-    # [O3o1o0gA10o0] 練習1.0巻 こんにちわページ1.0版
-    path('warabenture/vol1.0/hello/ver1.0/',
-         # -------------------------------
+    # [O3o1o0gA10o0] こんにちわページ1.0版
+    path('hello/ver1.0/',
+         # ------------
          # 1
          HelloView.render, name='hello'),
     #    ----------------        -----
     #    2                       3
-    # 1. 例えば `http://example.com/warabenture/vol1.0/hello/ver1.0/` のようなURLのパスの部分
-    #                              --------------------------------
+    # 1. 例えば `http://example.com/hello/ver1.0/` のようなURLのパスの部分
+    #                              -------------
     # 2. HelloView クラスの render 静的メソッド
     # 3. HTMLテンプレートの中で {% url 'hello' %} のような形でURLを取得するのに使える
 ]
