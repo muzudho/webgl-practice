@@ -19,8 +19,6 @@
         <script src="{% static 'webglScript.js' %}"></script>
 
         <script>
-            console.log(`window.location.href:${window.location.href}`);
-
             // ページの読み込みを待つ
             window.addEventListener("DOMContentLoaded", init);
 
@@ -32,16 +30,16 @@
                  * パスの手調整
                  */
                 function adjustPath(path) {
-                    return `../${path}`;
+                    return `../../${path}`;
                 }
 
                 //
                 // 外部リソースの場所
                 //
                 // シェーダー・スクリプトのファイルパスの配列
-                const pathsOfShaderScript = [adjustPath("../static/texture/vertex_shader.glsl"), adjustPath("../static/texture/fragment_shader.glsl")];
+                const pathsOfShaderScript = [adjustPath("static/texture/vertex_shader.glsl"), adjustPath("static/texture/fragment_shader.glsl")];
                 // 画像ファイルパス
-                const pathOfImageNo1 = adjustPath("../static/202101__character__28--kifuwarabe-futsu.png");
+                const pathOfImageNo1 = adjustPath("static/202101__character__28--kifuwarabe-futsu.png");
 
                 //
                 // キャンバス・サイズ設定
