@@ -1,52 +1,82 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8"/>
-  <script src="https://unpkg.com/three@0.140.2/build/three.min.js"></script>
-  <script>
+    <meta charset="utf-8"/>
+    <script src="https://unpkg.com/three@0.140.2/build/three.min.js"></script>
+    <script>
 
     // ページの読み込みを待つ
     window.addEventListener('DOMContentLoaded', init);
 
     function init() {
-        // サイズを指定
+        //
+        // キャンバス・サイズ設定
+        //
         const width = 960;
         const height = 540;
 
-        // レンダラーを作成
+        //
+        // レンダラー作成
+        //
         const renderer = new THREE.WebGLRenderer({
             canvas: document.querySelector('#myCanvas')
         });
         renderer.setSize(width, height);
 
-        // シーンを作成
+        //
+        // シーン作成
+        //
         const scene = new THREE.Scene();
 
-        // カメラを作成
+        //
+        // カメラ作成
+        //
         const camera = new THREE.PerspectiveCamera(45, width / height); // , 1, 10000
         camera.position.set(0, 0, +1000);
 
-        // 球体を作成
+        //
+        // ジオメトリー作成
+        //
+        // - 球体
         const geometry = new THREE.SphereGeometry(300, 30, 30);
-        // 画像を読み込む
+
+        //
+        // テクスチャー・ローダー作成
+        //
         const loader = new THREE.TextureLoader();
+
+        //
+        // テクスチャー読込
+        //
         const texture = loader.load('../imgs/earthmap1k.jpg');
-        // マテリアルにテクスチャーを設定
+
+        //
+        // マテリアル作成
+        //
+        // - テクスチャー設定
         const material = new THREE.MeshStandardMaterial({
             map: texture
         });
-        // メッシュを作成
-        const mesh = new THREE.Mesh(geometry, material);
-        // 3D空間にメッシュを追加
-        scene.add(mesh);
 
-        // 平行光源
+        //
+        // メッシュ作成
+        //
+        const mesh = new THREE.Mesh(geometry, material);
+
+        //
+        // 光源作成
+        //
+        // - 平行光源
         const directionalLight = new THREE.DirectionalLight(0xFFFFFF);
         directionalLight.position.set(1, 1, 1);
-        // シーンに追加
-        scene.add(directionalLight);
 
-        tick();
+        //
+        // シーン構成
+        //
+        // - メッシュ
+        scene.add(mesh);
+        // - 平行光源
+        scene.add(directionalLight);
 
         // 毎フレーム時に実行されるループイベントです
         function tick() {
@@ -57,6 +87,8 @@
 
             requestAnimationFrame(tick);
         }
+
+        tick();
     }
 
   </script>
