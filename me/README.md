@@ -1,5 +1,13 @@
 # 自分の
 
+# Run
+
+```shell
+cd me/src1
+
+docker-compose up
+```
+
 # Smoke test
 
 📖 [http://localhost:8000/warabenture/vol1.0/hello/ver1.0/](http://localhost:8000/warabenture/vol1.0/hello/ver1.0/)  

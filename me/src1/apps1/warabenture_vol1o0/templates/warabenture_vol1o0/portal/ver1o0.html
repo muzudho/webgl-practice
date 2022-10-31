@@ -23,52 +23,42 @@
             window.addEventListener("DOMContentLoaded", init);
 
             function init() {
-                // シェーダー・スクリプトのファイルパスの配列
-                const shaderScriptPaths = ["../static/texture/vertex_shader.glsl", "../static/texture/fragment_shader.glsl"];
-                // const imagePath = "../static/texture/2016_09_texture.png";
-                const imagePath = "../static/202101__character__28--kifuwarabe-futsu.png";
-                webgl_setup(shaderScriptPaths, imagePath);
-
-                // サイズを指定
+                // キャンバス・サイズ設定
                 const width = 960;
                 const height = 540;
 
-                // レンダラーを作成
+                // シェーダー・スクリプトのファイルパスの配列
+                const shaderScriptPaths = ["../static/texture/vertex_shader.glsl", "../static/texture/fragment_shader.glsl"];
+                // 画像ファイルパス
+                const imagePath = "../static/202101__character__28--kifuwarabe-futsu.png";
+
+                //
+                // レンダラー作成
+                //
                 const renderer = new THREE.WebGLRenderer({
                     canvas: document.querySelector("#myCanvas"),
                 });
                 renderer.setSize(width, height);
+
+                // レンダラー設定
                 // 背景が真っ暗なのを止める
                 // 📖 [three.jsの背景を透明色または他の色に変更する](https://qastack.jp/programming/16177056/changing-three-js-background-to-transparent-or-other-color)
                 renderer.setClearColor(0xffffff, 0);
 
-                // シーンを作成
-                const scene = new THREE.Scene();
+                // スクリプトへのパス、画像へのパス設定
+                webgl_setup(shaderScriptPaths, imagePath);
 
-                // カメラを作成
-                const camera = new THREE.PerspectiveCamera(45, width / height, 1, 10000);
-                camera.position.set(0, 500, +1000);
-                camera.lookAt(new THREE.Vector3(0, 0, 0));
-
-                // コンテナーを作成
-                const container = new THREE.Object3D();
-                scene.add(container);
-
-                // マテリアルを作成
+                //
+                // マテリアル作成
+                //
                 const material = new THREE.MeshStandardMaterial({
                     color: 0xab83e9, // RGB
                     side: THREE.DoubleSide,
                 });
 
-                // 平行光源を作成
-                const directionalLight = new THREE.DirectionalLight(0xffffff);
-                directionalLight.position.set(1, 1, 1);
-                scene.add(directionalLight);
-                // 環境光を作成
-                const ambientLight = new THREE.AmbientLight(0x999999);
-                scene.add(ambientLight);
-
-                // ジオメトリ（図形）を作成
+                //
+                // ジオメトリ（図形）作成
+                //
                 const geometryList = [
                     new THREE.SphereGeometry(50), // 球体
                     new THREE.BoxGeometry(100, 100, 100), // 直方体
@@ -79,6 +69,48 @@
                     new THREE.TorusGeometry(50, 30, 16, 100), // ドーナツ形状
                 ];
 
+                //
+                // シーン作成
+                //
+                const scene = new THREE.Scene();
+
+                //
+                // カメラ作成
+                //
+                const camera = new THREE.PerspectiveCamera(45, width / height, 1, 10000);
+                camera.position.set(0, 500, +1000);
+                camera.lookAt(new THREE.Vector3(0, 0, 0));
+
+                //
+                // 光源作成
+                //
+                // - 平行光源
+                const directionalLight = new THREE.DirectionalLight(0xffffff);
+                directionalLight.position.set(1, 1, 1);
+
+                //
+                // 環境光作成
+                //
+                const ambientLight = new THREE.AmbientLight(0x999999);
+
+                //
+                // コンテナー作成（メッシュの集まりにあたる概念的なもの）
+                //
+                const container = new THREE.Object3D();
+
+                //
+                // シーン構成
+                //
+                // 光源
+                scene.add(directionalLight);
+                // 環境光
+                scene.add(ambientLight);
+                // コンテナー
+                scene.add(container);
+
+                //
+                // 図形の初期設定
+                //
                 geometryList.map((geometry, index) => {
                     // 形状とマテリアルからメッシュを作成します
                     const mesh = new THREE.Mesh(geometry, material);
@@ -91,8 +123,6 @@
                     mesh.position.z = 400 * Math.cos((index / geometryList.length) * Math.PI * 2);
                 });
 
-                tick();
-
                 // 毎フレーム時に実行されるループイベントです
                 function tick() {
                     // メッシュを回転させる
@@ -102,6 +132,8 @@
 
                     requestAnimationFrame(tick);
                 }
+
+                tick();
             }
         </script>
     </head>
