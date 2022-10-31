@@ -1,0 +1,98 @@
+<!--
+    📖 [Three.jsでの最適なリサイズ処理](https://ics.media/tutorial-three/renderer_resize/)
+-->
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <script src="https://unpkg.com/three@0.140.2/build/three.min.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <style>
+            /* 画面全体をキャンバスにするための設定。スクロールバーが出てこないようにするため、マージンを無くす */
+            body {
+                margin: 0;
+                overflow: hidden;
+            }
+        </style>
+        <script>
+            // ページの読み込みを待つ
+            window.addEventListener("DOMContentLoaded", init);
+
+            function init() {
+                //
+                // レンダラーを作成
+                //
+                const renderer = new THREE.WebGLRenderer({
+                    canvas: document.querySelector("#myCanvas"),
+                    antialias: true,
+                });
+
+                //
+                // シーン作成
+                //
+                const scene = new THREE.Scene();
+
+                //
+                // カメラ作成
+                //
+                const camera = new THREE.PerspectiveCamera(45, 1.0);
+                camera.position.set(0, 0, +1000);
+
+                //
+                // ジオメトリー（図形）作成
+                //
+                // - 球体
+                const geometry = new THREE.SphereGeometry(300, 30, 30);
+
+                //
+                // マテリアル作成
+                //
+                const material = new THREE.MeshBasicMaterial({ wireframe: true });
+
+                //
+                // メッシュ作成
+                //
+                const mesh = new THREE.Mesh(geometry, material);
+
+                //
+                // シーン構成
+                //
+                // - メッシュ
+                scene.add(mesh);
+
+                tick();
+
+                // 毎フレーム時に実行されるループイベントです
+                function tick() {
+                    // レンダリング
+                    renderer.render(scene, camera);
+                    requestAnimationFrame(tick);
+                }
+
+                // 初期化時に１回実行
+                onResize();
+                // リサイズイベント発生時に実行
+                window.addEventListener("resize", onResize);
+
+                /**
+                 * リサイズイベント発生時に実行
+                 */
+                function onResize() {
+                    // ウィンドウ・サイズ取得
+                    const width = window.innerWidth;
+                    const height = window.innerHeight;
+
+                    // レンダラーのサイズ調整
+                    renderer.setPixelRatio(window.devicePixelRatio);
+                    renderer.setSize(width, height);
+
+                    // カメラのアスペクト比を正す
+                    camera.aspect = width / height;
+                    camera.updateProjectionMatrix();
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <canvas id="myCanvas"></canvas>
+    </body>
+</html>
