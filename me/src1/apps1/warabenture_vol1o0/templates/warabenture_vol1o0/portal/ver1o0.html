@@ -23,14 +23,19 @@
             window.addEventListener("DOMContentLoaded", init);
 
             function init() {
-                // キャンバス・サイズ設定
-                const width = 960;
-                const height = 540;
-
+                //
+                // 外部リソースの場所
+                //
                 // シェーダー・スクリプトのファイルパスの配列
                 const shaderScriptPaths = ["../static/texture/vertex_shader.glsl", "../static/texture/fragment_shader.glsl"];
                 // 画像ファイルパス
                 const imagePath = "../static/202101__character__28--kifuwarabe-futsu.png";
+
+                //
+                // キャンバス・サイズ設定
+                //
+                const width = 960;
+                const height = 540;
 
                 //
                 // レンダラー作成
@@ -45,7 +50,7 @@
                 // 📖 [three.jsの背景を透明色または他の色に変更する](https://qastack.jp/programming/16177056/changing-three-js-background-to-transparent-or-other-color)
                 renderer.setClearColor(0xffffff, 0);
 
-                // スクリプトへのパス、画像へのパス設定
+                // WebGL に外部リソース設定
                 webgl_setup(shaderScriptPaths, imagePath);
 
                 //
